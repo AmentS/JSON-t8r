@@ -7,14 +7,15 @@
                     <p class="modal-card-title">Novi JSON</p>
                     <button class="delete" aria-label="close" @click="showModal = false"></button>
                 </header>
+
                 <section class="modal-card-body">
                     <div v-for="(input, index) in inputs" :key="index">
                         <input type="text" v-model="input.key" placeholder="key" class="input is-success"
                                style="margin-bottom: 5px">
                         <input type="text" v-model="input.value" placeholder="value" class="input is-success">
-                        <button @click="deleteRow(index)" class="delete">Delete</button>
-                        {{ input.key }} :
-                        {{ input.value }}
+                        <button @click="deleteRow(index)" class="delete"style="margin-top: 2px">Delete</button>
+                        <label style="color: darkgray">{{ input.key }}</label> :
+                        <label style="color: lightseagreen">{{ input.value }}</label>
                     </div>
 
                 </section>
@@ -22,7 +23,9 @@
                     <ExportJson :storageObj="inputsAsObject" :fileName="ime + '.json'"></ExportJson>
                     <button @click="addRow" class="button is-primary">Add row</button>
                     <button @click="deleteAll" class="button is-danger">Delete all</button>
+                    <button class="button is-link">Save</button>
                     <input type="text" placeholder="Jezik" v-model="ime">
+
                 </footer>
             </div>
         </div>
@@ -58,7 +61,11 @@
             },
             deleteAll() {
                 this.inputs = [];
+            },
+            sauvaj(){
+                return JSON.stringify(Object.fromEntries(this.inputs.map(x => [x.key, x.value])));
             }
+
         },
         computed: {
             inputsAsObject() {

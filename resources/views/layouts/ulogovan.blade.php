@@ -12,7 +12,7 @@
     </head>
     <body>
         <div id="app">
-            @include('layouts.proba')
+            @include('layouts.pocetna')
 
             <section class="section">
                  <div class="container">
@@ -25,6 +25,8 @@
             
             
         </div>
+
+
 
         <script src='/js/app.js'></script>
     </body>

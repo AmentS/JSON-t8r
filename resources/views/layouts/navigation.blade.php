@@ -10,7 +10,7 @@
         <a>New JSON</a>
       </router-link>
 
-      <router-link tag='li' to='/testmodal'> 
+      <router-link tag='li' to='/support'>
         <a>Support</a>
       </router-link>
 

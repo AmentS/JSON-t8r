@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -6,10 +6,8 @@
 
         <title>Laravel</title>
 
-        Fonts
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-        Styles
         <style>
             html, body {
                 background-color: #fff;
@@ -76,16 +74,33 @@
                             <a href="{{ route('register') }}">Register</a>
                         @endif
                     @endauth
-                </div>
+
+        </div>
             @endif
 
-            <div class="content">
-                <div class="title m-b-md">
-                 DOBRODOSLI
+                <div class="content">
+                    <div class="title m-b-md">
+                        <div style="border: 1px solid WHITE; height: 500px; width: 1350px" class="container">
+                            <img src="images/pocetna_slika.jpg" style="width: 100%; height: 100%">
+                            WELCOME
+                        </div>
 
-            </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+
         </div>
+
+
+
+
     </body>
 </html>
- -->
- @extends('layouts.ulogovan')
+
+
+ {{--@extends('layouts.ulogovan')--}}

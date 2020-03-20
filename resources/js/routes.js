@@ -17,8 +17,8 @@ let routes = [
 	{
 
 
-		path: '/testmodal',
-		component: require('./components/Testmodal').default
+		path: '/support',
+		component: require('./components/Support').default
 	}
 
 ]
