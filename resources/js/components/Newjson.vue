@@ -20,10 +20,11 @@
 
                 </section>
                 <footer class="modal-card-foot">
-                    <ExportJson :storageObj="inputsAsObject" :fileName="ime + '-' +  language + '.json'"></ExportJson>
+
+                    <ExportJson :storageObj="inputsAsObject" :fileName="ime + '-' +  language + '.json'" v-if="this.inputs != '' && this.ime != ''"></ExportJson>
                     <button @click="addRow" class="button is-primary">Add row</button>
                     <button @click="deleteAll" class="button is-danger">Delete all</button>
-                    <button class="button is-link" @click="sauvaj">Save</button>
+                    <button class="button is-link" @click="sauvaj" v-if="this.inputs != '' && this.ime != ''">Save</button>
                     <input type="text" name="name" id="" v-model="ime" style="width: 150px" class="input is-small" placeholder="Name of file">
 
                   <select class="select is-small" name="language" v-model="language">
