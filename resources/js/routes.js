@@ -19,6 +19,12 @@ let routes = [
 
 		path: '/support',
 		component: require('./components/Support').default
+	},
+	{
+
+
+		path: '/test',
+		component: require('./components/TestPocetne').default
 	}
 
 ]
