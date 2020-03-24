@@ -21,5 +21,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-/*Route::get('/languages', 'LanguagesController@index');*/
+
 

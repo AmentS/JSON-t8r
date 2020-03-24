@@ -18,13 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::post('/projects', 'ProjectsController@store');
-
-
+Route::post('/projects', 'ProjectController@store');
 
 Route::get('/language', function (){
-    return App\Languages::all();
-
+    return App\Language::all();
 });
+
+
+
+
+
+
 
