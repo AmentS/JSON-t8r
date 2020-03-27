@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/projects', 'ProjectController@store');
 
+Route::get('/projects', 'ProjectController@index');
+
 Route::get('/language', function (){
     return App\Language::all();
 });

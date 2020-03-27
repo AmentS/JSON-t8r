@@ -33,8 +33,8 @@ class ProjectController extends Controller
 
         User::find(1)->addProject($project);
 
-        return ['message' => 'Created successfully']; // ako je api vraca json, ne mozes da radis redirect
-        // return redirect('/home'); - ako nije api
+        return ['message' => 'Created successfully'];
+        // return redirect('/home'); -
     }
 
     /**
