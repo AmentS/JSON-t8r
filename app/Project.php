@@ -17,4 +17,9 @@ class Project extends Model
     {
         $this->users()->attach($user->id);
     }
+
+    public function userCanAccess(User $user): bool
+    {
+        return $this->users()->whereKey($user->getKey())->exists();
+    }
 }
