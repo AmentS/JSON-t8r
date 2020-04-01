@@ -17,7 +17,7 @@ class CreateLanguagesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('code');
-            $table->string('language_name');
+            $table->string('name');
         });
     }
 
