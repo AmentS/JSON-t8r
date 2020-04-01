@@ -79,6 +79,7 @@
                     const response = await axios.post('./api/projects', {
                         name: this.projectName
                     });
+                    this.fetchProjects();
                     Swal.fire("Successfully added a new project");
                 } catch (e) {
                     Swal.fire("Oops, something went wrong, try gain in a few seconds");

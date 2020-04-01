@@ -11,9 +11,10 @@
                 <section class="modal-card-body">
                     <div v-for="(input, index) in inputs" :key="index">
                         <input type="text" v-model="input.key" placeholder="key" class="input is-success"
-                               style="margin-bottom: 5px">
-                        <input type="text" v-model="input.value" placeholder="value" class="input is-success">
-                        <button @click="deleteRow(index)" class="delete"style="margin-top: 2px">Delete</button>
+                               style="margin-bottom: 5px;">
+                        <input type="text" v-model="input.value" placeholder="value" class="input is-success" >
+                        <button @click="deleteRow(index)" class="delete"style=" margin-top: 2px;">Delete</button>
+                        <!--left: -15px;top: -10px;position: relative;-->
                         <label style="color: darkgray">{{ input.key }}</label> :
                         <label style="color: lightseagreen">{{ input.value }}</label>
                     </div>
@@ -24,12 +25,12 @@
                     <ExportJson :storageObj="inputsAsObject" :fileName="ime + '-' +  language + '.json'" v-if="this.inputs != '' && this.ime != ''"></ExportJson>
                     <button @click="addRow" class="button is-primary">Add row</button>
                     <button @click="deleteAll" class="button is-danger">Delete all</button>
-                    <button class="button is-link" @click="sauvaj" v-if="this.inputs != '' && this.ime != ''">Save</button>
+                    <button class="button is-link" @click="sacuvaj" v-if="this.inputs != '' && this.ime != ''">Save</button>
                     <input type="text" name="name" id="" v-model="ime" style="width: 150px" class="input is-small" placeholder="Name of file">
 
-                  <select class="select is-small" name="language" v-model="language">
+                    <select class="select is-small" name="language" v-model="language">
 
-                      <option :value="language.code" v-for="language in languages" >{{language.code}}</option>
+                        <option :value="language.code" v-for="language in languages" >{{language.code}}</option>
 
                     </select>
 
@@ -73,7 +74,7 @@
             deleteAll() {
                 this.inputs = [];
             },
-            sauvaj(){
+            sacuvaj(){
 
 
                 return JSON.stringify(Object.fromEntries(this.inputs.map(x => [x.key, x.value])));

@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::apiResource('projects', 'ProjectController');
 
     Route::get('/language', 'LanguageController@index');
+
 });
 
 
