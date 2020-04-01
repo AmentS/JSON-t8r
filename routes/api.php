@@ -14,17 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::apiResource('projects', 'ProjectController');
+
+    Route::get('/language', 'LanguageController@index');
+
 });
 
-Route::post('/projects', 'ProjectController@store');
 
-Route::get('/projects', 'ProjectController@index');
 
-Route::get('/language', function (){
-    return App\Language::all();
-});
+
+
 
 
 

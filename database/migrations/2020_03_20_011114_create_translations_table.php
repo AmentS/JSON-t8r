@@ -15,10 +15,11 @@ class CreateTranslationsTable extends Migration
     {
         Schema::create('translations', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->unsignedBigInteger('language_id');
             $table->unsignedBigInteger('project_id');
-            $table->string('translation_String');
+            $table->string('data');
+            $table->timestamps();
+
             $table->unique(['language_id', 'project_id']);
 
             $table->foreign('language_id')
