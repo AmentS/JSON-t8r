@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <form v-on:submit.prevent>
-<!--            method="POST" action="./api/projects" v-on:submit.prevent-->
+            <!--            method="POST" action="./api/projects" v-on:submit.prevent-->
             <div class="modal is-active" v-show="openNewPrForm">
 
 
@@ -38,17 +38,17 @@
                 <div class="select is-small is-success">
                     <select v-model="projectId">
                         <option>Select dropdown</option>
-                        <option :value="p.id" v-for="p in projects">{{p.project_name}}</option>
+                        <option :value="p.id" v-for="p in projects">{{p.name}}</option>
 
                     </select>
                 </div>
             </div>
         </div>
 
-     <div v-show="projectId != 'Select dropdown'">
+        <div v-show="projectId != 'Select dropdown'">
 
-        <newjson></newjson>
-         <translate></translate>
+            <newjson></newjson>
+            <translate></translate>
 
         </div>
 
@@ -71,15 +71,13 @@
                 projects: [],
                 projectId: 'Select dropdown'
             }
-
         },
 
         methods: {
-
             async newProject() {
                 try {
                     const response = await axios.post('./api/projects', {
-                        projectName: this.projectName
+                        name: this.projectName
                     });
                     Swal.fire("Successfully added a new project");
                 } catch (e) {
@@ -88,13 +86,18 @@
                     this.projectName = '';
                     this.openNewPrForm = false;
                 }
+            },
+            async fetchProjects() {
+                try {
+                    const {data} = await axios.get('/api/projects');
+                    this.projects = data;
+                } catch {
+                    Swal.fire({icon: 'error', text: 'Cannot fetch projects at the moment, try again later.'});
+                }
             }
-
         },
         created() {
-
-            axios.get('./api/projects').then(({data}) => this.projects = data);
-
+            this.fetchProjects();
         }
     }
 </script>
