@@ -47,8 +47,24 @@
 
         <div v-show="projectId != 'Select dropdown'">
 
-            <newjson></newjson>
-            <translate></translate>
+
+            <table class="table is-narrow">
+
+                <tr><td><newjson></newjson></td><td> <translate></translate></td></tr>
+            </table>
+
+           <!-- <div class="container">
+                <div class="notification">
+
+
+                </div>
+                <div class="notification">
+
+
+                </div>
+            </div>-->
+
+
 
         </div>
 

@@ -39,11 +39,14 @@
                 </footer>
             </div>
         </div>
-        <ul style="text-align: left">
 
-            Kliknite ovde da bi ste kreirani no json
-            <button @click="showModal = true">Kreiraj novi</button>
-        </ul>
+    <div> <h1>Create new JSON file</h1> <button @click="showModal = true" class="button is-success">Crete new</button></div>
+        
+
+
+
+
+
 
     </div>
 </template>
