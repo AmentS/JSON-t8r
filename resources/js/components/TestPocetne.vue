@@ -36,7 +36,7 @@
         <div class="field">
             <div class="control">
                 <div class="select is-small is-success">
-                    <select v-model="projectId">
+                    <select v-model="projectId" @change="fetchUsers">
                         <option>Select dropdown</option>
                         <option :value="p.id" v-for="p in projects">{{p.name}}</option>
 
@@ -57,13 +57,19 @@
                 <div class="notification">
 
 
+            <div class="columns">
+                <div class="column is-one-third" style="text-align: center; border: 1px solid black">
+                    <h1 class="subtitle is-5">Team</h1>
+                    <div v-for="user in usersOnProject" :key="user.id">
+                        <p>{{ user.name }}</p>
+
+
+                    </div>
+
                 </div>
-                <div class="notification">
+                <div class="column" style="text-align: center;  border: 1px solid black"><h1 class="subtitle is-5">Translated JSON files</h1></div>
 
-
-                </div>
-            </div>-->
-
+            </div>
 
 
         </div>
@@ -85,7 +91,9 @@
                 openNewPrForm: false,
                 projectName: '',
                 projects: [],
-                projectId: 'Select dropdown'
+                projectId: 'Select dropdown',
+                usersOnProject: [],
+                id: 1
             }
         },
 
@@ -111,7 +119,16 @@
                 } catch {
                     Swal.fire({icon: 'error', text: 'Cannot fetch projects at the moment, try again later.'});
                 }
+            },
+            async fetchUsers(){
+                try {
+                    const {data} = await axios.get(`/api/projects/${this.projectId}/users`);
+                    this.usersOnProject = data;
+                }catch  {
+
+                }
             }
+
         },
         created() {
             this.fetchProjects();
