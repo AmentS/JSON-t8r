@@ -58,9 +58,11 @@
                 </section>
                 <footer class="modal-card-foot">
 
-                    <ExportJson :storageObj="selected.data" :fileName="ime + '-' +  language + '.json'" v-if="this.inputs != '' && this.ime != ''"></ExportJson>
-                    <button class="button is-link" v-if="this.inputs != '' && this.ime != ''">Save</button>
-                    <input type="text" name="name" id="" v-model="ime" style="width: 150px" class="input is-small" placeholder="Name of file">
+                    <ExportJson :storageObj="selected.data" :fileName="ime + '-' +  language + '.json'"
+                                v-if="this.ime != ''"></ExportJson>
+                    <button class="button is-link" v-if="this.ime != ''" @click="sacuvaj">Save</button>
+                    <input type="text" name="name" id="" v-model="ime" style="width: 150px" class="input is-small"
+                           placeholder="Name of file">
 
 
                     <select class="select is-small" name="language" v-model="language">
@@ -82,8 +84,10 @@
 </template>
 <script>
     import ExportJson from "./ExportJson.vue";
+
     export default {
         components: {ExportJson},
+        props: ['projectId'],
         data() {
             return {
                 parsedFiles: [],
@@ -109,7 +113,25 @@
                     });
                     reader.readAsText(file);
                 })
+            },
+            async sacuvaj(){
+                const data = JSON.stringify(this.selected.data);
+
+                try {
+                    const response = await axios.post('/api/translations/', {
+                        'project_id': this.projectId,
+                        'language_code': this.language,
+                        'filename': this.ime,
+                        data
+                    });
+
+                    Swal.fire({icon: 'success', text:"Translation saved"});
+                } catch {
+                    Swal.fire({icon: 'error', text: "Oops, something went wrong, try again in a few seconds"});
+                }
+
             }
+
         },
         created() {
             axios.get('./api/language').then(response => this.languages = response.data);

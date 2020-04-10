@@ -50,11 +50,9 @@
 
             <table class="table is-narrow">
 
-                <tr><td><newjson></newjson></td><td> <translate></translate></td></tr>
+                <tr><td><newjson :projectId="projectId"></newjson></td><td> <translate :projectId="projectId"></translate></td></tr>
             </table>
 
-           <!-- <div class="container">
-                <div class="notification">
 
 
             <div class="columns">

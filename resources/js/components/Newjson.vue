@@ -54,6 +54,7 @@
     import ExportJson from "./ExportJson.vue";
 
     export default {
+        props: ['projectId'],
         components: {ExportJson},
         data() {
             return {
@@ -77,10 +78,22 @@
             deleteAll() {
                 this.inputs = [];
             },
-            sacuvaj(){
+            async sacuvaj(){
+                const data = JSON.stringify(this.inputsAsObject);
 
+                try {
+                    const response = await axios.post('/api/translations/', {
+                        'project_id': this.projectId,
+                        'language_code': this.language,
+                        'filename': this.ime,
+                        data
+                    });
 
-                return JSON.stringify(Object.fromEntries(this.inputs.map(x => [x.key, x.value])));
+                    Swal.fire({icon: 'success', text:"Translation saved"});
+                } catch {
+                    Swal.fire({icon: 'error', text: "Oops, something went wrong, try again in a few seconds"});
+                }
+
             }
 
         },
