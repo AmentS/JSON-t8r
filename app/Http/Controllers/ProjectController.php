@@ -100,4 +100,18 @@ class ProjectController extends Controller
 
         return ['message' => 'Deleted successfully'];
     }
+
+    public function users(Project $project)
+    {
+        $this->checkAccess($project);
+
+        return $project->users;
+    }
+
+    public function translations(Project $project)
+    {
+        $this->checkAccess($project);
+
+        return $project->translations;
+    }
 }

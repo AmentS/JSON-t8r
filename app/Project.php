@@ -13,6 +13,11 @@ class Project extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function translations()
+    {
+        return $this->hasMany(Translation::class);
+    }
+
     public function addUser(User $user)
     {
         $this->users()->attach($user->id);
