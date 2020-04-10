@@ -41,7 +41,7 @@
         </div>
 
     <div> <h1>Create new JSON file</h1> <button @click="showModal = true" class="button is-success">Crete new</button></div>
-        
+
 
 
 

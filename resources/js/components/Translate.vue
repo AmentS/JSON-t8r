@@ -4,7 +4,8 @@
         <div>
             <div class="file">
                 <label class="file-label">
-                    <input class="file-input" type="file" name="resume" @change="loadFile" multiple accept="application/json">
+                    <input class="file-input" type="file" name="resume" @change="loadFile" multiple
+                           accept="application/json">
                     <span class="file-cta">
                     <span class="file-icon">
                         <i class="fas fa-upload"></i>
@@ -23,23 +24,23 @@
                 <option v-bind:value="file" v-for="file in parsedFiles" :key="file.lang">{{ file.lang }}</option>
             </select>
         </div>
-    <!--    <div v-if="selected">
-        <ul>
-            <ExportJson :storageObj="selected.data" :fileName="ime + '-' +  language + '.json'"></ExportJson>
-            <input type="text" name="name" id="" v-model="ime" style="width: 150px" class="input is-small" placeholder="Name of file">
-            <select class="select is-small" name="language" v-model="language">
+        <!--    <div v-if="selected">
+            <ul>
+                <ExportJson :storageObj="selected.data" :fileName="ime + '-' +  language + '.json'"></ExportJson>
+                <input type="text" name="name" id="" v-model="ime" style="width: 150px" class="input is-small" placeholder="Name of file">
+                <select class="select is-small" name="language" v-model="language">
 
-                <option :value="language.code" v-for="language in languages" >{{language.code}}</option>
+                    <option :value="language.code" v-for="language in languages" >{{language.code}}</option>
 
-            </select>
-            <div v-for="(value, key) in selected.data" :key="key" style="text-align: left">
-                <label style="color: red">{{ key }}</label>:
-                &lt;!&ndash;<label style="color: green; border:1px solid black;margin-right: 45px" >{{ value }}</label>&ndash;&gt;
-                <input type="text" :value="value">
+                </select>
+                <div v-for="(value, key) in selected.data" :key="key" style="text-align: left">
+                    <label style="color: red">{{ key }}</label>:
+                    &lt;!&ndash;<label style="color: green; border:1px solid black;margin-right: 45px" >{{ value }}</label>&ndash;&gt;
+                    <input type="text" :value="value">
 
-            </div>
-        </ul>
-    </div>-->
+                </div>
+            </ul>
+        </div>-->
 
         <div class="modal is-active" v-if="selected">
             <div class="modal-background"></div>
@@ -67,12 +68,9 @@
 
                     <select class="select is-small" name="language" v-model="language">
 
-                        <option :value="language.code" v-for="language in languages" >{{language.code}}</option>
+                        <option :value="language.code" v-for="language in languages">{{language.code}}</option>
 
                     </select>
-
-
-
 
 
                 </footer>
@@ -94,7 +92,7 @@
                 files: null,
                 selected: null,
                 languages: [],
-                language:'en',
+                language: 'en',
                 ime: '',
                 newJSON: null
             };
