@@ -15,9 +15,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'auth'], function () {
+
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    Route::get('/projects/{project}/users', 'ProjectController@users');
+
+    // TODO: nested routes
+    Route::get('/projects/{project}/translations', 'TranslationController@index');
+    Route::get('/translations', 'TranslationController@show');
+    Route::post('/translations', 'TranslationController@storeOrUpdate');
+//    Route::post('/projects/{project}/translations', 'TranslationController@update');
+    Route::delete('/translations', 'TranslationController@destroy');
+
 
     Route::apiResource('projects', 'ProjectController');
 
