@@ -18,9 +18,10 @@ class CreateTranslationsTable extends Migration
             $table->unsignedBigInteger('language_id');
             $table->unsignedBigInteger('project_id');
             $table->string('data');
+            $table->string('filename');
             $table->timestamps();
 
-            $table->unique(['language_id', 'project_id']);
+            $table->unique(['language_id', 'project_id', 'filename']);
 
             $table->foreign('language_id')
                 ->references('id')
