@@ -50,10 +50,9 @@
                 </header>
 
                 <section class="modal-card-body">
-                    <div v-for="(value, key) in selected.data" :key="key" style="text-align: left">
+                    <div v-for="(val, key) in selected.data" :key="key" style="text-align: left">
                         <label style="color: red; margin-bottom: auto">{{ key }}:</label>
-                        <input type="text" :value="value" class="input is-success">
-
+                        <input type="text" v-model="selected.data[key]" class="input is-success">
                     </div>
 
                 </section>
