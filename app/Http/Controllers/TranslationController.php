@@ -15,7 +15,7 @@ class TranslationController extends Controller
      */
     public function index(Project $project)
     {
-        return $project->translations;
+        return $project->translations()->with('language')->get();
     }
 
     /**

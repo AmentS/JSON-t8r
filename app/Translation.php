@@ -16,4 +16,11 @@ class Translation extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
+    }
+
+
 }

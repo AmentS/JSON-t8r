@@ -90,11 +90,15 @@
                     });
 
                     Swal.fire({icon: 'success', text:"Translation saved"});
-                } catch {
+                } catch(e) {
                     Swal.fire({icon: 'error', text: "Oops, something went wrong, try again in a few seconds"});
+                }finally{
+                    this.inputs = [];
+                    this.ime = '';
                 }
 
             }
+
 
         },
         computed: {

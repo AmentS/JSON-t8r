@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // TODO: nested routes
     Route::get('/projects/{project}/translations', 'TranslationController@index');
+
     Route::get('/translations', 'TranslationController@show');
     Route::post('/translations', 'TranslationController@storeOrUpdate');
 //    Route::post('/projects/{project}/translations', 'TranslationController@update');

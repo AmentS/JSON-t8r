@@ -36,7 +36,7 @@
         <div class="field">
             <div class="control">
                 <div class="select is-small is-success">
-                    <select v-model="projectId" @change="fetchUsers">
+                    <select v-model="projectId" @change="fetchUsers(); fetchTranslations()">
                         <option>Select dropdown</option>
                         <option :value="p.id" v-for="p in projects">{{p.name}}</option>
 
@@ -56,16 +56,35 @@
 
 
             <div class="columns">
-                <div class="column is-one-third" style="text-align: center; border: 1px solid black">
+                <div class="column is-one-third" style="text-align: center;">
                     <h1 class="subtitle is-5">Team</h1>
-                    <div v-for="user in usersOnProject" :key="user.id">
-                        <p>{{ user.name }}</p>
+                    <table class="table table is-striped">
+                    <tr v-for="user in usersOnProject" :key="user.id">
+                        <td style="text-align: center">{{ user.name }}</td>
 
 
-                    </div>
+                    </tr>
+                    </table>
 
                 </div>
-                <div class="column" style="text-align: center;  border: 1px solid black"><h1 class="subtitle is-5">Translated JSON files</h1></div>
+                <div class="column" style="text-align: center; ">
+                    <h1 class="subtitle is-5">Translated JSON files</h1>
+                    <table class="table table is-striped"  style="text-align: center">
+                        <tr  style="text-align: center"><td><b>Language</b></td><td><b>Code</b></td><td><b>Name</b></td><td><b>Data translated</b></td></tr>
+
+
+                            <tr v-for="translation in translatins" :key="translation.id"  style="text-align: center">
+                                <td>{{ translation.language.name}}</td><td>{{ translation.language.code}}</td> <td>{{ translation.filename }}</td><td>{{ translation.data }}</td>
+
+                            </tr>
+
+
+
+
+
+                    </table>
+
+                </div>
 
             </div>
 
@@ -91,7 +110,8 @@
                 projects: [],
                 projectId: 'Select dropdown',
                 usersOnProject: [],
-                id: 1
+                translatins: []
+               /* id: 1*/
             }
         },
 
@@ -122,6 +142,15 @@
                 try {
                     const {data} = await axios.get(`/api/projects/${this.projectId}/users`);
                     this.usersOnProject = data;
+
+                }catch  {
+
+                }
+            },
+            async fetchTranslations(){
+                try {
+                    const {data} = await axios.get(`/api/projects/${this.projectId}/translations`);
+                    this.translatins = data;
                 }catch  {
 
                 }
@@ -130,6 +159,7 @@
         },
         created() {
             this.fetchProjects();
+
         }
     }
 </script>
