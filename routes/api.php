@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/language', 'LanguageController@index');
 
+    Route::post('/projectUser', 'ProjectUserController@addUsers');
+
 });
 
 
