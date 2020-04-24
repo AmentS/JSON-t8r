@@ -46,7 +46,11 @@
         </div>
 
         <div v-show="projectId != 'Select dropdown'">
-
+            <div style="margin-bottom: 10px">
+            <label class="label">Add person to project:</label>
+            <input type="email" placeholder="example@exapmle.com" class="input is-info" style="width: 25%" v-model="userEmail">
+            <button class="button is-success is-light" @click="addUserToProject">Add</button>
+            </div>
 
             <table class="table is-narrow">
 
