@@ -114,8 +114,8 @@
                 projects: [],
                 projectId: 'Select dropdown',
                 usersOnProject: [],
-                translatins: []
-               /* id: 1*/
+                translatins: [],
+                userEmail: ''
             }
         },
 
@@ -158,11 +158,30 @@
                 }catch  {
 
                 }
+            },
+
+            async addUserToProject(){
+                try {
+                    const response = await axios.post(`/api/projectUser`, {
+
+                        email: this.userEmail,
+                        id: this.projectId
+                    });
+                    this.fetchUsers();
+                    Swal.fire("Successfully added a new project");
+
+                } catch (e) {
+                    Swal.fire("Please enter an existing email");
+                } finally {
+                    this.userEmail= ''
+                }
+
             }
 
         },
         created() {
             this.fetchProjects();
+            this.fetchUsers();
 
         }
     }
