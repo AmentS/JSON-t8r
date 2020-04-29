@@ -1,138 +1,189 @@
 <template>
-    <div class="Translate">
-        <h1>Import JSON file</h1>
-        <div>
-            <div class="file">
-                <label class="file-label">
-                    <input class="file-input" type="file" name="resume" @change="loadFile" multiple
-                           accept="application/json">
-                    <span class="file-cta">
-                    <span class="file-icon">
-                        <i class="fas fa-upload"></i>
-                    </span>
-                    <span class="file-label">
-                        Import file...
-                    </span>
-                </span>
-                </label>
-            </div>
-            <!--  <input type="file" @change="loadFile" multiple accept="application/json" > -->
-        </div>
-        <div style="margin-top: 1rem;" v-if="files">
-            <label for="selectLang">Select JSON file</label>
-            <select v-model="selected" id="selectLang">
-                <option v-bind:value="file" v-for="file in parsedFiles" :key="file.lang">{{ file.lang }}</option>
-            </select>
-        </div>
-        <!--    <div v-if="selected">
-            <ul>
-                <ExportJson :storageObj="selected.data" :fileName="ime + '-' +  language + '.json'"></ExportJson>
-                <input type="text" name="name" id="" v-model="ime" style="width: 150px" class="input is-small" placeholder="Name of file">
-                <select class="select is-small" name="language" v-model="language">
+    <div class="container">
+        <form v-on:submit.prevent>
+            <!--            method="POST" action="./api/projects" v-on:submit.prevent-->
+            <div class="modal is-active" v-show="openNewPrForm">
 
-                    <option :value="language.code" v-for="language in languages" >{{language.code}}</option>
 
-                </select>
-                <div v-for="(value, key) in selected.data" :key="key" style="text-align: left">
-                    <label style="color: red">{{ key }}</label>:
-                    &lt;!&ndash;<label style="color: green; border:1px solid black;margin-right: 45px" >{{ value }}</label>&ndash;&gt;
-                    <input type="text" :value="value">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">New Project</p>
+                        <button class="delete" aria-label="close" @click="openNewPrForm = false"></button>
+                    </header>
+                    <section class="modal-card-body">
+                        <input type="text" class="input is-info" name="project_name" id="project_name"
+                               placeholder="Project name"
+                               v-model="projectName">
 
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button class="button is-success" v-if="this.projectName != ''" @click="newProject">Save
+                        </button>
+
+                    </footer>
                 </div>
-            </ul>
-        </div>-->
 
-        <div class="modal is-active" v-if="selected">
-            <div class="modal-background"></div>
-            <div class="modal-card">
-                <header class="modal-card-head">
-                    <p class="modal-card-title">JSON</p>
-                    <button class="delete" aria-label="close" @click="selected = null"></button>
-                </header>
+            </div>
+        </form>
+        <ul style="text-align: left">
+            For createing a new project click the button below<br>
+            <button @click="openNewPrForm = true" class="button is-info">Create</button>
+        </ul>
+        <br>
 
-                <section class="modal-card-body">
-                    <div v-for="(val, key) in selected.data" :key="key" style="text-align: left">
-                        <label style="color: red; margin-bottom: auto">{{ key }}:</label>
-                        <input type="text" v-model="selected.data[key]" class="input is-success">
-                    </div>
-
-                </section>
-                <footer class="modal-card-foot">
-
-                    <ExportJson :storageObj="selected.data" :fileName="ime + '-' +  language + '.json'"
-                                v-if="this.ime != ''"></ExportJson>
-                    <button class="button is-link" v-if="this.ime != ''" @click="sacuvaj">Save</button>
-                    <input type="text" name="name" id="" v-model="ime" style="width: 150px" class="input is-small"
-                           placeholder="Name of file">
-
-
-                    <select class="select is-small" name="language" v-model="language">
-
-                        <option :value="language.code" v-for="language in languages">{{language.code}}</option>
+        Project you are already a part of:<br>
+        <div class="field">
+            <div class="control">
+                <div class="select is-small is-success">
+                    <select v-model="projectId" @change="fetchUsers(); fetchTranslations()">
+                        <option>Select dropdown</option>
+                        <option :value="p.id" v-for="p in projects">{{p.name}}</option>
 
                     </select>
-
-
-                </footer>
+                </div>
             </div>
         </div>
+
+        <div v-show="projectId != 'Select dropdown'">
+            <div style="margin-bottom: 10px">
+                <label class="label">Add person to project:</label>
+                <input type="email" placeholder="example@exapmle.com" class="input is-info" style="width: 25%" v-model="userEmail">
+                <button class="button is-success is-light" @click="addUserToProject">Add</button>
+            </div>
+
+            <table class="table is-narrow">
+
+                <tr><td><newjson :projectId="projectId"></newjson></td><td> <translate :projectId="projectId"></translate></td></tr>
+            </table>
+
+
+
+            <div class="columns">
+                <div class="column is-one-third" style="text-align: center;">
+                    <h1 class="subtitle is-5">Team</h1>
+                    <table class="table table is-striped">
+                        <tr v-for="user in usersOnProject" :key="user.id">
+                            <td style="text-align: center">{{ user.name }}</td>
+
+
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="column" style="text-align: center; ">
+                    <h1 class="subtitle is-5">Translated JSON files</h1>
+                    <table class="table table is-striped"  style="text-align: center">
+                        <tr  style="text-align: center"><td><b>Language</b></td><td><b>Code</b></td><td><b>Name</b></td><td><b>Data translated</b></td></tr>
+
+
+                        <tr v-for="translation in translatins" :key="translation.id"  style="text-align: center">
+                            <td>{{ translation.language.name}}</td><td>{{ translation.language.code}}</td> <td>{{ translation.filename }}</td><td>{{ translation.data }}</td>
+
+                        </tr>
+
+
+
+
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
     </div>
 
-
 </template>
-<script>
-    import ExportJson from "./ExportJson.vue";
 
+<script>
+
+
+    import Newjson from "./Newjson";
+    import Translate from "./Translate.vue";
     export default {
-        components: {ExportJson},
-        props: ['projectId'],
+        components: {Newjson, Translate},
+
         data() {
             return {
-                parsedFiles: [],
-                files: null,
-                selected: null,
-                languages: [],
-                language: 'en',
-                ime: '',
-                newJSON: null
-            };
+                openNewPrForm: false,
+                projectName: '',
+                projects: [],
+                projectId: 'Select dropdown',
+                usersOnProject: [],
+                translatins: [],
+                userEmail: ''
+            }
         },
+
         methods: {
-            loadFile(event) {
-                this.files = event.target.files;
-                if (!this.files || this.files.length === 0) return;
-                this.selected = null;
-                this.parsedFiles = [];
-                [...this.files].forEach(file => {
-                    let reader = new FileReader();
-                    reader.onload = () => this.parsedFiles.push({
-                        lang: file.name,
-                        data: JSON.parse(reader.result)
-                    });
-                    reader.readAsText(file);
-                })
-            },
-            async sacuvaj(){
-                const data = JSON.stringify(this.selected.data);
-
+            async newProject() {
                 try {
-                    const response = await axios.post('/api/translations/', {
-                        'project_id': this.projectId,
-                        'language_code': this.language,
-                        'filename': this.ime,
-                        data
+                    const response = await axios.post('./api/projects', {
+                        name: this.projectName
                     });
-
-                    Swal.fire({icon: 'success', text:"Translation saved"});
+                    this.fetchProjects();
+                    Swal.fire("Successfully added a new project");
+                } catch (e) {
+                    Swal.fire("Oops, something went wrong, try gain in a few seconds");
+                } finally {
+                    this.projectName = '';
+                    this.openNewPrForm = false;
+                }
+            },
+            async fetchProjects() {
+                try {
+                    const {data} = await axios.get('/api/projects');
+                    this.projects = data;
                 } catch {
-                    Swal.fire({icon: 'error', text: "Oops, something went wrong, try again in a few seconds"});
+                    Swal.fire({icon: 'error', text: 'Cannot fetch projects at the moment, try again later.'});
+                }
+            },
+            async fetchUsers(){
+                try {
+                    const {data} = await axios.get(`/api/projects/${this.projectId}/users`);
+                    this.usersOnProject = data;
+
+                }catch  {
+
+                }
+            },
+            async fetchTranslations(){
+                try {
+                    const {data} = await axios.get(`/api/projects/${this.projectId}/translations`);
+                    this.translatins = data;
+                }catch  {
+
+                }
+            },
+
+            async addUserToProject(){
+                try {
+                    const response = await axios.post(`/api/projectUser`, {
+
+                        email: this.userEmail,
+                        id: this.projectId
+                    });
+                    this.fetchUsers();
+                    Swal.fire("Successfully added a new project");
+
+                } catch (e) {
+                    Swal.fire("Please enter an existing email");
+                } finally {
+                    this.userEmail= ''
                 }
 
             }
 
         },
         created() {
-            axios.get('./api/language').then(response => this.languages = response.data);
+            this.fetchProjects();
+            this.fetchUsers();
+
         }
     }
 </script>
+
