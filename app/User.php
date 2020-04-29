@@ -42,9 +42,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Project::class)->withTimestamps();
     }
 
-    public function addProject(Project $project)
+    public function attachProject(Project $project)
     {
-        $this->projects()->attach($project->id);
+        if ($this->projects()->whereKey($project->id)->doesntExist())
+            $this->projects()->attach($project->id);
     }
-    
+
+    public function isOnProject(Project $project): bool
+    {
+        return $this->projects()->whereKey($project->getKey())->exists();
+    }
+
 }

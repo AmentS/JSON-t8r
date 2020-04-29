@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
         return $request->user();
     });
 
-    Route::get('/projects/{project}/users', 'ProjectController@users');
+//    Route::get('/projects/{project}/users', 'ProjectController@users');
 
     // TODO: nested routes
     Route::get('/projects/{project}/translations', 'TranslationController@index');
@@ -35,7 +35,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/language', 'LanguageController@index');
 
-    Route::post('/projectUser', 'ProjectUserController@addUsers');
+    Route::get('/projects/{project}/users', 'ProjectUserController@index');
+    Route::post('/projects/{project}/users', 'ProjectUserController@store');
+
+
 
 });
 

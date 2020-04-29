@@ -45,7 +45,7 @@ class ProjectController extends Controller
 
         $project = Project::create($request->all());
 
-        Auth::user()->addProject($project);
+        Auth::user()->attachProject($project);
 
         return ['message' => 'Created successfully'];
         // return redirect('/home'); -
