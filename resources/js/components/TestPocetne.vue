@@ -162,16 +162,15 @@
 
             async addUserToProject(){
                 try {
-                    const response = await axios.post(`/api/projectUser`, {
-
-                        email: this.userEmail,
-                        id: this.projectId
+                    const response = await axios.post(`/api/projects/${this.projectId}/users`, {
+                        email: this.userEmail
                     });
-                    this.fetchUsers();
-                    Swal.fire("Successfully added a new project");
 
+                    this.fetchUsers();
+
+                    Swal.fire("Successfully added a new project");
                 } catch (e) {
-                    Swal.fire("Please enter an existing email");
+                    Swal.fire(e.response.data.message);
                 } finally {
                     this.userEmail= ''
                 }
