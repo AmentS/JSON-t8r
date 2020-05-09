@@ -77,7 +77,7 @@
                         <tr  style="text-align: center"><td><b>Language</b></td><td><b>Code</b></td><td><b>Name</b></td><td><b>Data translated</b></td></tr>
 
 
-                            <tr v-for="translation in translatins" :key="translation.id"  style="text-align: center">
+                            <tr v-for="translation in translations" :key="translation.id" style="text-align: center">
                                 <td>{{ translation.language.name}}</td><td>{{ translation.language.code}}</td> <td>{{ translation.filename }}</td><td>{{ translation.data }}</td>
 
                             </tr>
@@ -114,7 +114,7 @@
                 projects: [],
                 projectId: 'Select dropdown',
                 usersOnProject: [],
-                translatins: [],
+                translations: [],
                 userEmail: ''
             }
         },
@@ -154,7 +154,7 @@
             async fetchTranslations(){
                 try {
                     const {data} = await axios.get(`/api/projects/${this.projectId}/translations`);
-                    this.translatins = data;
+                    this.translations = data;
                 }catch  {
 
                 }
