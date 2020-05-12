@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/projects/{project}/users', 'ProjectUserController@index');
     Route::post('/projects/{project}/users', 'ProjectUserController@store');
+    Route::post('/contact', 'ContactController@store');
 
 
 

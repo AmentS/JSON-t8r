@@ -53,4 +53,5 @@ class User extends Authenticatable
         return $this->projects()->whereKey($project->getKey())->exists();
     }
 
+
 }
