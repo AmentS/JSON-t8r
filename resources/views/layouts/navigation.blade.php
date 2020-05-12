@@ -8,7 +8,7 @@
 
 
             <router-link tag='li' to='/support'>
-                <a>Support</a>
+                <a>Contact</a>
             </router-link>
 
         </ul>
