@@ -11,6 +11,10 @@
                 <a>Contact</a>
             </router-link>
 
+            <router-link tag='li' to='/admin'>
+                <a>Admin</a>
+            </router-link>
+
         </ul>
     </div>
 </nav>

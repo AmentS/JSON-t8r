@@ -14,7 +14,14 @@ let routes = [
 
 		path: '/support',
 		component: require('./components/Support').default
-	}
+	},
+
+    {
+
+
+        path: '/admin',
+        component: require('./components/AdminPage').default
+    }
 
 ]
 
