@@ -47,9 +47,9 @@
 
         <div v-show="projectId != 'Select dropdown'">
             <div style="margin-bottom: 10px">
-            <label class="label">Add person to project:</label>
-            <input type="email" placeholder="example@exapmle.com" class="input is-info" style="width: 25%" v-model="userEmail">
-            <button class="button is-success is-light" @click="addUserToProject">Add</button>
+                <label class="label">Add person to project:</label>
+                <input type="email" placeholder="example@exapmle.com" class="input is-info" style="width: 25%" v-model="userEmail">
+                <button class="button is-success is-light" @click="addUserToProject">Add</button>
             </div>
 
             <table class="table is-narrow">
@@ -63,11 +63,11 @@
                 <div class="column is-one-third" style="text-align: center;">
                     <h1 class="subtitle is-5">Team</h1>
                     <table class="table table is-striped">
-                    <tr v-for="user in usersOnProject" :key="user.id">
-                        <td style="text-align: center">{{ user.name }}</td>
+                        <tr v-for="user in usersOnProject" :key="user.id">
+                            <td style="text-align: center">{{ user.name }}</td>
 
 
-                    </tr>
+                        </tr>
                     </table>
 
                 </div>
@@ -77,14 +77,10 @@
                         <tr  style="text-align: center"><td><b>Language</b></td><td><b>Code</b></td><td><b>Name</b></td><td><b>Data translated</b></td></tr>
 
 
-                            <tr v-for="translation in translations" :key="translation.id" style="text-align: center">
-                                <td>{{ translation.language.name}}</td><td>{{ translation.language.code}}</td> <td>{{ translation.filename }}</td><td>{{ translation.data }}</td>
+                        <tr v-for="translation in translations" :key="translation.id" style="text-align: center">
+                            <td>{{ translation.language.name}}</td><td>{{ translation.language.code}}</td> <td>{{ translation.filename }}</td><td>{{ translation.data }}</td>
 
-                            </tr>
-
-
-
-
+                        </tr>
 
                     </table>
 

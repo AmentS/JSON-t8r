@@ -1,34 +1,69 @@
 <template>
+    <div class="container">
+        <div class="container" style="text-align: center">
+            <p class="title" >System Overview</p>
+            <GChart
+                type="PieChart"
+                :data="chartData"
+            />
+        </div>
+        <div class="container">
+        <div class="columns" style="border: 1px solid red; height: 50px" >
 
-    <GChart
-        type="PieChart"
-        :data="chartData"
-        :options="chartOptions"
-    />
+            <div class="column is-one-third" style="text-align: center; border: 1px solid black; height: 50px"> Korisnici</div>
+
+            <div class="column" style="text-align: center; border: 1px solid black; height: 50px"> Poruke</div>
+
+
+        </div>
+    </div>
+
+
+
+    </div>
 
 
 </template>
 
 <script>
     export default {
-        data () {
+
+        data() {
+
             return {
-                // Array will be automatically processed with visualization.arrayToDataTable function
-                chartData: [
-                    ['Task', 'Hours per Day'],
-                    ['Work',     11],
-                    ['Eat',      2],
-                    ['Commute',  2],
-                    ['Watch TV', 2],
-                    ['Sleep',    7]
-                ],
-                chartOptions: {
-                    chart: {
-                        title: 'Company Performance',
-                        subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-                    }
+                usersOnProject: 0
+
+
+            }
+        },
+        methods: {
+            async fetchUsers() {
+                try {
+                    const {data} = await axios.get(`./api/users`);
+                    this.usersOnProject = data;
+
+                } catch {
+
+                }
+            },
+
+        },
+        created() {
+            this.fetchUsers();
+        },
+        computed: {
+            chartData(){
+                return {
+                    chartData: [
+                        ['Users', this.usersOnProject],
+                        ['Projects', 3],
+                        ['Translations', 1],
+                        ['Messages', 2],
+                    ]
+
                 }
             }
+
         }
     }
 
@@ -36,6 +71,3 @@
 
 </script>
 
-<style scoped>
-
-</style>
