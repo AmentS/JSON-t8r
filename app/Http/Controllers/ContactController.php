@@ -25,4 +25,10 @@ class ContactController extends Controller
 
     }
 
+    public function index()
+    {
+        //ako zelimo neke filtere ne mozemo a stavimo all()
+        return Contact::with('user')->get();
+    }
+
 }

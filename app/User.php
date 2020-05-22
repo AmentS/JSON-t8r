@@ -53,5 +53,9 @@ class User extends Authenticatable
         return $this->projects()->whereKey($project->getKey())->exists();
     }
 
+    public function contact(){
+
+        return $this->hasMany(Contact::class);
+    }
 
 }
