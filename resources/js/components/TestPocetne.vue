@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <form v-on:submit.prevent>
-            <!--            method="POST" action="./api/projects" v-on:submit.prevent-->
+
             <div class="modal is-active" v-show="openNewPrForm">
 
 
