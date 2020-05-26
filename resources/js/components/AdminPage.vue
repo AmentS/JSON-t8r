@@ -71,6 +71,15 @@
                 } catch {
 
                 }
+            },
+            async openContacts(a){
+                try {
+                    const {data} = await axios.get("/api/contact/" + a);
+                    this.contactsOpen = data;
+
+                }catch  {
+
+                }
             }
 
         },

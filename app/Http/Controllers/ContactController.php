@@ -31,4 +31,10 @@ class ContactController extends Controller
         return Contact::with('user')->get();
     }
 
+    public function show(Contact $contact)
+    {
+       // return Contact::where('id', $contact)->with('user')->get();
+        return $contact;
+    }
+
 }
