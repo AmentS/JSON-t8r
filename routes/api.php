@@ -41,8 +41,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/contact', 'ContactController@index');
     Route::get('/contact/{contact}', 'ContactController@show');
 
+    Route::get('/users', 'ContactUserController@index');
+    Route::get('/users/{user}', 'ContactUserController@show');
 
-    Route::get('/users', 'UserController@index');
+    Route::get('/user', 'UserController@index');
 
 
 
