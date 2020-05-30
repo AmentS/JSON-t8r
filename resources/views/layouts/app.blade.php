@@ -18,6 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script>
+        window.authUser = @json(Auth::user())
+    </script>
 </head>
 <body>
     <div id="app">

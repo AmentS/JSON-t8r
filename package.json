@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "vue-google-charts": "^0.3.2"
+        "vue-google-charts": "^0.3.2",
+        "vuex": "^3.4.0"
     }
 }
