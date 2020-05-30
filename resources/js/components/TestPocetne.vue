@@ -45,18 +45,29 @@
             </div>
         </div>
 
+        <button v-show="selectedProject && selectedProject.is_owner" class="button is-danger" @click="deleteProject">
+            Delete project
+        </button>
+
         <div v-show="projectId != 'Select dropdown'">
             <div style="margin-bottom: 10px">
                 <label class="label">Add person to project:</label>
-                <input type="email" placeholder="example@exapmle.com" class="input is-info" style="width: 25%" v-model="userEmail">
+                <input type="email" placeholder="example@exapmle.com" class="input is-info" style="width: 25%"
+                       v-model="userEmail">
                 <button class="button is-success is-light" @click="addUserToProject">Add</button>
             </div>
 
             <table class="table is-narrow">
 
-                <tr><td><newjson :projectId="projectId"></newjson></td><td> <translate :projectId="projectId"></translate></td></tr>
+                <tr>
+                    <td>
+                        <newjson :projectId="projectId"></newjson>
+                    </td>
+                    <td>
+                        <translate :projectId="projectId"></translate>
+                    </td>
+                </tr>
             </table>
-
 
 
             <div class="columns">
@@ -73,8 +84,13 @@
                 </div>
                 <div class="column" style="text-align: center; ">
                     <h1 class="subtitle is-5">Translated JSON files</h1>
-                    <table class="table table is-striped"  style="text-align: center">
-                        <tr  style="text-align: center"><td><b>Language</b></td><td><b>Code</b></td><td><b>Name</b></td><td><b>Data translated</b></td></tr>
+                    <table class="table table is-striped" style="text-align: center">
+                        <tr style="text-align: center">
+                            <td><b>Language</b></td>
+                            <td><b>Code</b></td>
+                            <td><b>Name</b></td>
+                            <td><b>Data translated</b></td>
+                        </tr>
 
 
                         <tr v-for="translation in translations" :key="translation.id" style="text-align: center">
@@ -126,16 +142,26 @@
         methods: {
             async newProject() {
                 try {
-                    const response = await axios.post('./api/projects', {
+                    const response = await axios.post('/api/projects', {
                         name: this.projectName
                     });
                     this.fetchProjects();
                     Swal.fire("Successfully added a new project");
                 } catch (e) {
-                    Swal.fire("Oops, something went wrong, try gain in a few seconds");
+                    Swal.fire("Oops, something went wrong, try again in a few seconds");
                 } finally {
                     this.projectName = '';
                     this.openNewPrForm = false;
+                }
+            },
+            async deleteProject() {
+                try {
+                    const name = this.selectedProject.name
+                    await axios.delete('/api/projects/' + this.projectId);
+                    this.fetchProjects();
+                    Swal.fire("Successfully deleted project " + name);
+                } catch (e) {
+                    Swal.fire("Oops, something went wrong, try again in a few seconds");
                 }
             },
             async fetchProjects() {
@@ -146,25 +172,25 @@
                     Swal.fire({icon: 'error', text: 'Cannot fetch projects at the moment, try again later.'});
                 }
             },
-            async fetchUsers(){
+            async fetchUsers() {
                 try {
                     const {data} = await axios.get(`/api/projects/${this.projectId}/users`);
                     this.usersOnProject = data;
 
-                }catch  {
+                } catch {
 
                 }
             },
-            async fetchTranslations(){
+            async fetchTranslations() {
                 try {
                     const {data} = await axios.get(`/api/projects/${this.projectId}/translations`);
-                    this.translations = data;
-                }catch  {
+                    this.translations = data.map(d => ({...d, data: JSON.parse(d.data)}));
+                } catch {
 
                 }
             },
 
-            async addUserToProject(){
+            async addUserToProject() {
                 try {
                     const response = await axios.post(`/api/projects/${this.projectId}/users`, {
                         email: this.userEmail
@@ -172,11 +198,11 @@
 
                     this.fetchUsers();
 
-                    Swal.fire("Successfully added a new project");
+                    Swal.fire("Successfully added a new user to the project");
                 } catch (e) {
                     Swal.fire(e.response.data.message);
                 } finally {
-                    this.userEmail= ''
+                    this.userEmail = ''
                 }
 
             }
@@ -185,7 +211,11 @@
         created() {
             this.fetchProjects();
             this.fetchUsers();
-
+        },
+        computed: {
+            selectedProject() {
+                return this.projects.find(p => p.id === this.projectId)
+            }
         }
     }
 </script>

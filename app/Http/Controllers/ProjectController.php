@@ -43,7 +43,9 @@ class ProjectController extends Controller
             'name' => 'required|string'
         ]);
 
-        $project = Project::create($request->all());
+        $project = Project::create($request->merge([
+            'owner_id' => Auth::user()->id
+        ])->all());
 
         Auth::user()->attachProject($project);
 
@@ -94,7 +96,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        $this->checkAccess($project);
+        if(!$project->isOwner(Auth::user()))
+            abort(Response::HTTP_FORBIDDEN, 'You cannot manage this project');
 
         $project->delete();
 
