@@ -78,8 +78,12 @@
 
 
                         <tr v-for="translation in translations" :key="translation.id" style="text-align: center">
-                            <td>{{ translation.language.name}}</td><td>{{ translation.language.code}}</td> <td>{{ translation.filename }}</td><td>{{ translation.data }}</td>
-
+                            <td>{{ translation.language.name}}</td>
+                            <td>{{ translation.language.code}}</td>
+                            <td>{{ translation.filename }}</td>
+                            <td>
+                                <TranslationTablePreview :data="translation.data"/>
+                            </td>
                         </tr>
 
                     </table>
@@ -96,12 +100,16 @@
 </template>
 
 <script>
-
-
     import Newjson from "./Newjson";
     import Translate from "./Translate.vue";
+    import TranslationTablePreview from "./TranslationTablePreview";
+
     export default {
-        components: {Newjson, Translate},
+        components: {
+            Newjson,
+            Translate,
+            TranslationTablePreview
+        },
 
         data() {
             return {
