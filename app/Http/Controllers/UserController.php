@@ -9,6 +9,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        return User::all()->count();
+        return User::with('projects')->get();
+    }
+
+    public function show(User $user)
+    {
+        return $user->load('projects');
     }
 }

@@ -37,18 +37,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/projects/{project}/users', 'ProjectUserController@index');
     Route::post('/projects/{project}/users', 'ProjectUserController@store');
+
+
     Route::post('/contact', 'ContactController@store');
     Route::get('/contact', 'ContactController@index');
     Route::get('/contact/{contact}', 'ContactController@show');
 
-    Route::get('/users', 'ContactUserController@index');
-    Route::get('/users/{user}', 'ContactUserController@show');
-
-    Route::get('/user', 'UserController@index');
-
-
-
-
+    Route::get('/users', 'UserController@index');
+    Route::get('/users/{user}', 'UserController@show');
 
 });
 
