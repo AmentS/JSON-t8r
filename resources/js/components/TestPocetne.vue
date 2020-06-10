@@ -160,6 +160,7 @@
                     await axios.delete('/api/projects/' + this.projectId);
                     this.fetchProjects();
                     Swal.fire("Successfully deleted project " + name);
+                    this.projectId = 'Select dropdown';
                 } catch (e) {
                     Swal.fire("Oops, something went wrong, try again in a few seconds");
                 }
