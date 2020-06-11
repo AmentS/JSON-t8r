@@ -74,9 +74,10 @@ class ProjectController extends Controller
      * @return array|ResponseFactory|Response
      * @throws ValidationException
      */
-    public function update(Request $request, Project $project)
+  /*  public function update(Request $request, Project $project)
     {
         $this->checkAccess($project);
+
 
         $this->validate($request, [
             'name' => 'required|string'
@@ -85,7 +86,7 @@ class ProjectController extends Controller
         $project->update($request->all());
 
         return ['message' => 'Updated successfully'];
-    }
+    }*/
 
     /**
      * Remove the specified resource from storage.
