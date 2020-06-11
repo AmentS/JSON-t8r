@@ -4,7 +4,7 @@
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
-                    <p class="modal-card-title">Novi JSON</p>
+                    <p class="modal-card-title">New JSON</p>
                     <button class="delete" aria-label="close" @click="showModal = false"></button>
                 </header>
 

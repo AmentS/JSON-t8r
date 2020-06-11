@@ -56,6 +56,10 @@
                        v-model="userEmail">
                 <button class="button is-success is-light" @click="addUserToProject">Add</button>
             </div>
+            <div v-show="selectedProject && selectedProject.is_owner">
+                <input type="text" v-model="newProjectName" class="input is-info" style="width: 25%">
+                <button @click="updateProject" class="button is-warning">Update</button>
+            </div>
 
             <table class="table is-narrow">
 
@@ -135,7 +139,8 @@
                 projectId: 'Select dropdown',
                 usersOnProject: [],
                 translations: [],
-                userEmail: ''
+                userEmail: '',
+                newProjectName: ''
             }
         },
 
@@ -154,6 +159,21 @@
                     this.openNewPrForm = false;
                 }
             },
+            async updateProject() {
+                try {
+                    const response = await axios.post('/api/project', {
+                        name: this.newProjectName,
+                        id: this.projectId
+                    });
+                    this.fetchProjects();
+                    Swal.fire("Successfully updated the project name");
+                } catch (e) {
+                    Swal.fire("Please enter new project name");
+                } finally {
+
+                }
+            },
+
             async deleteProject() {
                 try {
                     const name = this.selectedProject.name
