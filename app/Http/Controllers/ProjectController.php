@@ -74,7 +74,7 @@ class ProjectController extends Controller
      * @return array|ResponseFactory|Response
      * @throws ValidationException
      */
-  /*  public function update(Request $request, Project $project)
+    public function update(Request $request, Project $project)
     {
         $this->checkAccess($project);
 
@@ -86,7 +86,7 @@ class ProjectController extends Controller
         $project->update($request->all());
 
         return ['message' => 'Updated successfully'];
-    }*/
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -97,7 +97,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        if(!$project->isOwner(Auth::user()))
+        if (!$project->isOwner(Auth::user()))
             abort(Response::HTTP_FORBIDDEN, 'You cannot manage this project');
 
         $project->delete();

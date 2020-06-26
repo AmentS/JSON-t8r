@@ -81,8 +81,7 @@
                 <div class="content">
                     <div class="title m-b-md">
                         <div style="border: 1px solid WHITE; height: 500px; width: 1350px" class="container">
-                            <img src="images/pocetna_slika.jpg" style="width: 100%; height: 100%">
-                            WELCOME
+                            WELCOME TO JSON T18R
                         </div>
 
 

@@ -52,7 +52,7 @@ class TranslationController extends Controller
             ->where('filename', $request->filename)
             ->first();
 
-        if($translation)
+        if ($translation)
             $translation->update($request->except('language_code'));
         else
             return Translation::create($request->merge([
@@ -74,7 +74,7 @@ class TranslationController extends Controller
             ->where('filename', $request->filename)
             ->firstOrFail();
 
-        if($translation->delete())
+        if ($translation->delete())
             return response()->json(['message' => 'Deleted successfully']);
     }
 }
